@@ -34,23 +34,59 @@ base de datos de un proyecto IoT para invernaderos
 <!-- ABOUT THE PROJECT -->
 ## Introduccion <a name="introdducion"></a>
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+En un mundo donde la seguridad alimentaria y la eficiencia agrícola son prioridades globales, la tecnología de Internet de las Cosas (IoT) ha emergido como un catalizador fundamental para la transformación del sector agrícola. Los invernaderos, en particular, representan un espacio crucial donde la integración de dispositivos IoT puede revolucionar la forma en que se cultiva y se gestiona la producción de alimentos.
+
+Este proyecto tiene como objetivo explorar y desarrollar un sistema de IoT para invernaderos, diseñado para optimizar el control ambiental, monitorear el crecimiento de las plantas y mejorar la eficiencia en el uso de recursos como agua y energía. Al emplear sensores inteligentes, actuadores y una plataforma de gestión de datos en la nube, se busca crear un entorno de cultivo inteligente y autónomo que permita a los agricultores supervisar y gestionar sus cultivos de manera remota y en tiempo real.
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Regresar al Inicio</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Escenario <a name="escenario"></a>
 Somos una empresa de sensores para invernaderos, los sensores se 
 encargarán de recoger la información relacionada con: temperatura, humedad, 
 presión atmosférica, luminosidad.
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Regresar al Inicio</a>)</p>
 
 ## Herramientas <a name="herramientas"></a>
-Somos una empresa de sensores para invernaderos, los sensores se 
-encargarán de recoger la información relacionada con: temperatura, humedad, 
-presión atmosférica, luminosidad.
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Para la realización de un proyecto IoT para un invernadero, es necesario contar con una variedad de herramientas y tecnologías que permitan la adquisición, procesamiento y gestión de datos, así como el control de dispositivos. A continuación, se detallan algunas de las herramientas esenciales:
+
+
+  
+  <li>Sensores y Actuadores:
+            <ul>
+                <li>Sensores de temperatura y humedad</li>
+                <li>Sensores de luz</li>
+                <li>Sensores de humedad del suelo</li>
+                <li>Actuadores de riego</li>
+                <li>Actuadores de ventilación</li>
+            </ul>
+        </li>
+        <li>Plataforma de Gestión de Datos:
+            <ul>
+                <li>Base de Datos (MySQL, PostgreSQL, MongoDB)</li>
+                <li>Servicios en la Nube (AWS IoT Core, Google Cloud IoT Core, Azure IoT Hub)</li>
+            </ul>
+        </li>
+        <li>Software de Desarrollo:
+            <ul>
+                <li>Lenguajes de Programación (Python, JavaScript, C++)</li>
+                <li>Frameworks de Desarrollo IoT (MQTT, CoAP, HTTP)</li>
+            </ul>
+        </li>
+        <li>Interfaz de Usuario:
+            <ul>
+                <li>Aplicación Web o Móvil</li>
+                <li>Frameworks de Desarrollo Web o Móvil (Flask, Django, React, Angular, Flutter)</li>
+            </ul>
+        </li>
+        <li>Seguridad:
+            <ul>
+                <li>Protocolos de Seguridad IoT (TLS/SSL)</li>
+                <li>Autenticación y Autorización</li>
+            </ul>
+        </li>
+<p align="right">(<a href="#readme-top">Regresar al Inicio</a>)</p>
 
 
 <!-- USAGE EXAMPLES -->
@@ -169,5 +205,5 @@ cuyo estado sea "inactivo".
    git clone 25
    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Regresar al Inicio</a>)</p>
 
