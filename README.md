@@ -89,9 +89,12 @@ Para la realización de un proyecto IoT para un invernadero, es necesario contar
         </li>
 <p align="right">(<a href="#readme-top">Regresar al Inicio</a>)</p>
 
+<br>
+ <h1> Modelo de la Base de Datos: </h1>
  <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/Modelo general base de datos.png">
  </div>
+
 
 <!-- USAGE EXAMPLES -->
 ## Consultas <a name="consultas"></a>
