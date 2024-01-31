@@ -3,7 +3,7 @@
 base de datos de un proyecto IoT para invernaderos
 <br>
 <div align="center" >
- <img src="https://qiu.itq.edu.ec/Principal/imgLogin/ITQ.png" alt="Logo" width="612" height="200">
+ <img src="BD tablas/Logo ITQ.png" alt="Logo" width="612" height="200">
 </div>
  <h3 align="center">Proyecto IoT</h3>
  <h2>Integrantes
