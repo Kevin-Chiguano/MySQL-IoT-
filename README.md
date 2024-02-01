@@ -99,11 +99,11 @@ Para la realización de un proyecto IoT para un invernadero, es necesario contar
  1. Obtener todos los dispositivos junto con la cantidad de datos de sensores registrados
 para cada uno.
  ```sh
-   SELECT d.dev_id, d.dev_name, COUNT(sr.sre_id) AS sensor_data_count
-   FROM Devices d
-   LEFT JOIN Sensors s ON d.dev_id = s.sen_dev_id
-   LEFT JOIN SensorsReading sr ON s.sen_id = sr.sre_sen_id
-   GROUP BY d.dev_id, d.dev_name;
+   SELECT dev_id, dev_name, COUNT(sre_id) AS Cantidad_sensores_registrados
+   FROM Devices 
+   LEFT JOIN Sensors  ON dev_id = sen_dev_id
+   LEFT JOIN SensorsReading  ON sen_id = sre_sen_id
+   GROUP BY dev_id, dev_name;
    ```
 <div align="center" >
  <img src="BD tablas/Constulta1.jpg">
