@@ -101,7 +101,11 @@ Para la realización de un proyecto IoT para un invernadero, es necesario contar
  1. Obtener todos los dispositivos junto con la cantidad de datos de sensores registrados
 para cada uno.
  ```sh
-   git clone 1
+   SELECT d.dev_id, d.dev_name, COUNT(sr.sre_id) AS sensor_data_count
+   FROM Devices d
+   LEFT JOIN Sensors s ON d.dev_id = s.sen_dev_id
+   LEFT JOIN SensorsReading sr ON s.sen_id = sr.sre_sen_id
+   GROUP BY d.dev_id, d.dev_name;
    ```
 <div align="center" >
  <img src="BD tablas/images.jpg">
@@ -109,7 +113,12 @@ para cada uno.
 
 2. Encontrar la temperatura máxima registrada por cada dispositivo.
 ```sh
-   git clone 2
+   SELECT d.dev_id, d.dev_name, MAX(sr.sre_value) AS max_temperature
+FROM devices d
+LEFT JOIN sensors s ON d.dev_id = s.sen_dev_id
+LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
+WHERE s.sensor_name = 'termometro'
+GROUP BY d.dev_id, d.dev_name;
    ```
 
 <div align="center" >
@@ -118,7 +127,10 @@ para cada uno.
  
 3. Mostrar la cantidad total de datos de sensores registrados para cada tipo de sensor.
 ```sh
-   git clone 3
+  SELECT s.sensor_type, COUNT(sr.sre_id) AS total_sensor_data
+FROM sensors s
+LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
+GROUP BY s.sensor_type;
    ```
 
 <div align="center" >
@@ -127,7 +139,12 @@ para cada uno.
  
 4. Obtener la lista de dispositivos que no han enviado datos en las últimas 24 horas.
 ```sh
-   git clone 4
+   SELECT d.dev_id, d.dev_name
+FROM devices d
+LEFT JOIN sensors s ON d.dev_id = s.sen_dev_id
+LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
+GROUP BY d.dev_id, d.dev_name
+HAVING MAX(sr.sre_date) < NOW() - INTERVAL 24 HOUR OR MAX(sr.sre_date) IS NULL;
    ```
 
 <div align="center" >
@@ -136,7 +153,12 @@ para cada uno.
  
 5. Calcular el promedio de temperatura por hora para todos los dispositivos.
 ```sh
-   git clone 5
+   SELECT d.dev_id, d.dev_name, HOUR(sr.sre_date) AS hour, AVG(sr.sre_value) AS avg_temperature
+FROM devices d
+LEFT JOIN sensors s ON d.dev_id = s.sen_dev_id
+LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
+WHERE s.sensor_name = 'termometro'
+GROUP BY d.dev_id, d.dev_name, HOUR(sr.sre_date);
    ```
 <div align="center" >
  <img src="BD tablas/images.jpg">
@@ -144,7 +166,15 @@ para cada uno.
 
 6. Encontrar el dispositivo con la mayor cantidad de datos de sensores registrados.
 ```sh
-   git clone 6
+
+   SELECT d.dev_id, d.dev_name, COUNT(sr.sre_id) AS sensor_data_count
+FROM devices d
+LEFT JOIN sensors s ON d.dev_id = s.sen_dev_id
+LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
+GROUP BY d.dev_id, d.dev_name
+ORDER BY sensor_data_count DESC
+LIMIT 1;
+
    ```
 
 <div align="center" >
@@ -153,7 +183,13 @@ para cada uno.
  
 7. Mostrar los dispositivos cuya temperatura promedio sea superior a cierto umbral.
 ```sh
-   git clone 7
+   SELECT d.dev_id, d.dev_name, AVG(sr.sre_value) AS avg_temperature
+FROM devices d
+LEFT JOIN sensors s ON d.dev_id = s.sen_dev_id
+LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
+WHERE s.sensor_name = 'termometro'
+GROUP BY d.dev_id, d.dev_name
+HAVING AVG(sr.sre_value) > 40.00;
    ```
 
 <div align="center" >
@@ -163,7 +199,12 @@ para cada uno.
 8. Obtener la cantidad total de datos de sensores registrados para cada dispositivo en el
 último mes.
 ```sh
-   git clone 8
+  SELECT d.dev_id, d.dev_name, COUNT(sr.sre_id) AS sensor_data_count
+FROM devices d
+LEFT JOIN sensors s ON d.dev_id = s.sen_dev_id
+LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
+WHERE sr.sre_date >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+GROUP BY d.dev_id, d.dev_name;
    ```
 
 <div align="center" >
@@ -172,7 +213,15 @@ para cada uno.
 
 9. Encontrar los dispositivos que tengan al menos dos tipos diferentes de sensores.
 ```sh
-   git clone 9
+-- Insertar un registro con el mismo INSERT INTO `sensors` VALUES (101, 1, 'luxometro', 'plata');
+   SELECT d.dev_id, d.dev_name
+FROM devices d
+INNER JOIN (
+    SELECT sen_dev_id, COUNT(DISTINCT sensor_type) AS num_sensor_types
+    FROM sensors
+    GROUP BY sen_dev_id
+) AS sensor_counts ON d.dev_id = sensor_counts.sen_dev_id
+WHERE sensor_counts.num_sensor_types >= 2;
    ```
 
 <div align="center" >
