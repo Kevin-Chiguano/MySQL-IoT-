@@ -59,8 +59,6 @@ Para la realización de un proyecto IoT para un invernadero, es necesario contar
                 <li>Sensores de temperatura y humedad</li>
                 <li>Sensores de luz</li>
                 <li>Sensores de humedad del suelo</li>
-                <li>Actuadores de riego</li>
-                <li>Actuadores de ventilación</li>
             </ul>
         </li>
         <li>Plataforma de Gestión de Datos:
