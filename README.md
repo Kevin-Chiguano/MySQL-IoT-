@@ -139,12 +139,12 @@ GROUP BY sen_type;
  
 4. Obtener la lista de dispositivos que no han enviado datos en las últimas 24 horas.
 ```sh
-   SELECT d.dev_id, d.dev_name
-FROM devices d
-LEFT JOIN sensors s ON d.dev_id = s.sen_dev_id
-LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
-GROUP BY d.dev_id, d.dev_name
-HAVING MAX(sr.sre_date) < NOW() - INTERVAL 24 HOUR OR MAX(sr.sre_date) IS NULL;
+   SELECT dev_id, dev_name
+FROM devices 
+LEFT JOIN sensors  ON dev_id = sen_dev_id
+LEFT JOIN sensorsreading ON sen_id = sre_sen_id
+GROUP BY dev_id, dev_name
+HAVING MAX(sre_date) < NOW() - INTERVAL 24 HOUR OR MAX(sre_date) IS NULL;
    ```
 
 <div align="center" >
@@ -153,12 +153,12 @@ HAVING MAX(sr.sre_date) < NOW() - INTERVAL 24 HOUR OR MAX(sr.sre_date) IS NULL;
  
 5. Calcular el promedio de temperatura por hora para todos los dispositivos.
 ```sh
-   SELECT d.dev_id, d.dev_name, HOUR(sr.sre_date) AS hour, AVG(sr.sre_value) AS avg_temperature
-FROM devices d
-LEFT JOIN sensors s ON d.dev_id = s.sen_dev_id
-LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
-WHERE s.sensor_name = 'termometro'
-GROUP BY d.dev_id, d.dev_name, HOUR(sr.sre_date);
+   SELECT dev_id, dev_name, HOUR(sre_date) AS HORA, AVG(sre_value) AS PromedioTemperatura
+FROM devices 
+LEFT JOIN sensors  ON dev_id = sen_dev_id
+LEFT JOIN sensorsreading ON sen_id = sre_sen_id
+WHERE sen_name = 'termometro'
+GROUP BY dev_id, dev_name, HOUR(sre_date);
    ```
 <div align="center" >
  <img src="BD tablas/Constula5.jpg">
@@ -167,11 +167,11 @@ GROUP BY d.dev_id, d.dev_name, HOUR(sr.sre_date);
 6. Encontrar el dispositivo con la mayor cantidad de datos de sensores registrados.
 ```sh
 
-   SELECT d.dev_id, d.dev_name, COUNT(sr.sre_id) AS sensor_data_count
-FROM devices d
-LEFT JOIN sensors s ON d.dev_id = s.sen_dev_id
-LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
-GROUP BY d.dev_id, d.dev_name
+   SELECT dev_id, dev_name, COUNT(sre_id) AS sensor_data_count
+FROM devices 
+LEFT JOIN sensors ON dev_id = sen_dev_id
+LEFT JOIN sensorsreading ON sen_id = sre_sen_id
+GROUP BY dev_id, dev_name
 ORDER BY sensor_data_count DESC
 LIMIT 1;
 
@@ -183,13 +183,13 @@ LIMIT 1;
  
 7. Mostrar los dispositivos cuya temperatura promedio sea superior a cierto umbral.
 ```sh
-   SELECT d.dev_id, d.dev_name, AVG(sr.sre_value) AS avg_temperature
-FROM devices d
-LEFT JOIN sensors s ON d.dev_id = s.sen_dev_id
-LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
-WHERE s.sensor_name = 'termometro'
-GROUP BY d.dev_id, d.dev_name
-HAVING AVG(sr.sre_value) > 40.00;
+   SELECT dev_id,dev_name, AVG(sre_value) AS average_temperature
+FROM devices
+LEFT JOIN sensors  ON dev_id = sen_dev_id
+LEFT JOIN sensorsreading ON sen_id = sre_sen_id
+WHERE sen_name = 'termometro'
+GROUP BY dev_id, dev_name
+HAVING AVG(sre_value) > 40.00;
    ```
 
 <div align="center" >
@@ -199,12 +199,12 @@ HAVING AVG(sr.sre_value) > 40.00;
 8. Obtener la cantidad total de datos de sensores registrados para cada dispositivo en el
 último mes.
 ```sh
-  SELECT d.dev_id, d.dev_name, COUNT(sr.sre_id) AS sensor_data_count
-FROM devices d
-LEFT JOIN sensors s ON d.dev_id = s.sen_dev_id
-LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
-WHERE sr.sre_date >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
-GROUP BY d.dev_id, d.dev_name;
+  SELECT dev_id,dev_name, COUNT(sre_id) AS sensor_data_count
+FROM devices
+LEFT JOIN sensors ON dev_id = sen_dev_id
+LEFT JOIN sensorsreading ON sen_id = sre_sen_id
+WHERE sre_date >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+GROUP BY dev_id,dev_name;
    ```
 
 <div align="center" >
@@ -213,14 +213,13 @@ GROUP BY d.dev_id, d.dev_name;
 
 9. Encontrar los dispositivos que tengan al menos dos tipos diferentes de sensores.
 ```sh
--- Insertar un registro con el mismo INSERT INTO `sensors` VALUES (101, 1, 'luxometro', 'plata');
-   SELECT d.dev_id, d.dev_name
-FROM devices d
+SELECT dev_id, dev_name
+FROM devices 
 INNER JOIN (
-    SELECT sen_dev_id, COUNT(DISTINCT sensor_type) AS num_sensor_types
+    SELECT sen_dev_id, COUNT(DISTINCT sen_type) AS num_sensor_types
     FROM sensors
     GROUP BY sen_dev_id
-) AS sensor_counts ON d.dev_id = sensor_counts.sen_dev_id
+) AS sensor_counts ON dev_id = sensor_counts.sen_dev_id
 WHERE sensor_counts.num_sensor_types >= 2;
    ```
 
@@ -228,10 +227,17 @@ WHERE sensor_counts.num_sensor_types >= 2;
  <img src="BD tablas/Constula9.jpg">
  </div>
  
-10. Mostrar los dispositivos cuyo estado actual sea "activo" y que hayan enviado datos en
+10. Mostrar los sensores cuyo tipo  actual sea "aluminio" y que hayan enviado datos en
 las últimas 12 horas.
 ```sh
-   git clone 10
+   SELECT sen_id, sen_name, sen_type
+FROM Sensors
+WHERE sen_type = 'aluminio'
+AND sen_id IN (
+    SELECT DISTINCT sen_id
+    FROM SensorsReading
+    WHERE sre_date >= NOW() - INTERVAL 12 HOUR
+);
    ```
 
 <div align="center" >
@@ -241,7 +247,10 @@ las últimas 12 horas.
 11. Calcular la suma total de datos de sensores para cada tipo de sensor en los últimos siete
 días.
 ```sh
-   git clone 11
+   SELECT sre_type, SUM(sre_value) AS total_data
+FROM SensorsReading
+WHERE sre_date >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+GROUP BY sre_type;
    ```
 
 <div align="center" >
@@ -251,7 +260,24 @@ días.
 12. Encontrar los dispositivos que han experimentado un aumento del 20% en la
 temperatura en la última hora.
 ```sh
-   git clone 12
+   SELECT sen_id, sen_name
+FROM Sensors
+WHERE sen_type = 'temperatura'
+AND sen_id IN (
+    SELECT sre_sen_id
+    FROM SensorsReading
+    WHERE sre_date >= DATE_SUB(NOW(), INTERVAL 1 HOUR)
+)
+AND sen_id IN (
+    SELECT sre_sen_id
+    FROM SensorsReading
+    WHERE sre_date >= DATE_SUB(NOW(), INTERVAL 2 HOUR)
+)
+AND ((SELECT MAX(sre_value) FROM SensorsReading 
+WHERE sre_sen_id = Sensors.sen_id AND sre_date >= DATE_SUB(NOW(), INTERVAL 1 HOUR)) - 
+(SELECT MAX(sre_value) FROM SensorsReading 
+WHERE sre_sen_id = Sensors.sen_id AND sre_date >= DATE_SUB(NOW(), INTERVAL 2 HOUR))) / 
+(SELECT MAX(sre_value) FROM SensorsReading WHERE sre_sen_id = Sensors.sen_id AND sre_date >= DATE_SUB(NOW(), INTERVAL 2 HOUR)) * 100 > 20;
    ```
 
 <div align="center" >
@@ -261,7 +287,13 @@ temperatura en la última hora.
 13. Mostrar los dispositivos cuya humedad promedio sea inferior al 30% y que estén
 actualmente inactivos.
 ```sh
-   git clone 13
+   SELECT sen_id, sen_name
+FROM Sensors
+WHERE sen_id NOT IN (
+    SELECT sre_sen_id
+    FROM SensorsReading
+    WHERE sre_description LIKE '%humedad%'  AND sre_value < 50.00
+);
    ```
 
 <div align="center" >
@@ -271,7 +303,9 @@ actualmente inactivos.
 14. Obtener la cantidad de datos de sensores registrados para cada dispositivo, agrupados
 por día.
 ```sh
-   git clone 14
+   SELECT sre_id, DATE(sre_date) AS fecha, COUNT(*) AS cantidad_datos
+FROM SensorsReading
+GROUP BY sre_id, DATE(sre_date);
    ```
 
 <div align="center" >
@@ -280,7 +314,10 @@ por día.
  
 15. Calcular la temperatura promedio por cada hora del día para todos los dispositivos.
 ```sh
-   git clone 15
+   SELECT HOUR(sre_date) AS hora_del_dia, AVG(sre_value) AS average_temperature
+FROM SensorsReading
+WHERE sre_type = 'c' 
+GROUP BY HOUR(sre_date);
    ```
 
 <div align="center" >
@@ -290,7 +327,13 @@ por día.
 16. Encontrar los dispositivos que tengan tanto sensores de temperatura como sensores de
 humedad.
 ```sh
-   git clone 16
+   SELECT dev_id, dev_name
+FROM Devices
+WHERE dev_id IN (
+    SELECT DISTINCT sen_dev_id
+    FROM Sensors
+    WHERE sen_name IN ('termometro', 'higrometro')
+);
    ```
 
 <div align="center" >
@@ -300,7 +343,19 @@ humedad.
 17. Mostrar los dispositivos cuya temperatura máxima haya superado un cierto umbral en
 los últimos siete días.
 ```sh
-   git clone 17
+   SELECT dev_id, dev_name
+FROM Devices
+WHERE dev_id IN (
+    SELECT sen_dev_id
+    FROM Sensors
+    WHERE sen_name = 'termometro'
+) AND dev_id IN (
+    SELECT sre_sen_id
+    FROM sensorsreading
+    WHERE sre_description = 'Lectura de temperatura'
+    AND sre_value > 30
+    AND sre_date >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+);
    ```
 
 <div align="center" >
