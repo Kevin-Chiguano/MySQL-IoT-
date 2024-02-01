@@ -127,10 +127,10 @@ GROUP BY dev_id, dev_name;
  
 3. Mostrar la cantidad total de datos de sensores registrados para cada tipo de sensor.
 ```sh
-  SELECT s.sensor_type, COUNT(sr.sre_id) AS total_sensor_data
-FROM sensors s
-LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
-GROUP BY s.sensor_type;
+  SELECT sen_type, COUNT(sre_id) AS total_sensor_data
+FROM sensors 
+LEFT JOIN sensorsreading  ON sen_id = sre_sen_id
+GROUP BY sen_type;
    ```
 
 <div align="center" >
