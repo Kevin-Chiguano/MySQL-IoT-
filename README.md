@@ -241,7 +241,7 @@ AND sen_id IN (
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/10.jpg">
  </div>
  
 11. Calcular la suma total de datos de sensores para cada tipo de sensor en los últimos siete
@@ -254,7 +254,7 @@ GROUP BY sre_type;
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/11.jpg">
  </div>
  
 12. Encontrar los dispositivos que han experimentado un aumento del 20% en la
@@ -281,7 +281,7 @@ WHERE sre_sen_id = Sensors.sen_id AND sre_date >= DATE_SUB(NOW(), INTERVAL 2 HOU
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/12.jpg">
  </div>
  
 13. Mostrar los dispositivos cuya humedad promedio sea inferior al 30% y que estén
@@ -297,7 +297,7 @@ WHERE sen_id NOT IN (
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/13.jpg">
  </div>
  
 14. Obtener la cantidad de datos de sensores registrados para cada dispositivo, agrupados
@@ -309,7 +309,7 @@ GROUP BY sre_id, DATE(sre_date);
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/14.jpg">
  </div>
  
 15. Calcular la temperatura promedio por cada hora del día para todos los dispositivos.
@@ -321,7 +321,7 @@ GROUP BY HOUR(sre_date);
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/15.jpg">
  </div>
  
 16. Encontrar los dispositivos que tengan tanto sensores de temperatura como sensores de
@@ -337,7 +337,7 @@ WHERE dev_id IN (
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/16.jpg">
  </div>
  
 17. Mostrar los dispositivos cuya temperatura máxima haya superado un cierto umbral en
@@ -359,7 +359,7 @@ WHERE dev_id IN (
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/17.jpg">
  </div>
  
 18. Obtener la lista de dispositivos junto con la cantidad de datos de sensores registrados,
@@ -376,7 +376,7 @@ ORDER BY fecha_registro_mas_reciente DESC;
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/18.jpg">
  </div>
  
 19. Calcular la diferencia de temperatura máxima y mínima registrada para cada dispositivo.
@@ -389,7 +389,7 @@ WHERE sre_type = 'c';
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/19.jpg">
  </div>
  
 20. Encontrar los dispositivos que han enviado datos constantemente durante las últimas 48
@@ -406,7 +406,7 @@ ORDER BY ultima_fecha_envio DESC;
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/20.jpg">
  </div>
  
 21. Mostrar los dispositivos cuya humedad promedio sea superior al 60% y que estén
@@ -423,7 +423,7 @@ ORDER BY humedad_promedio DESC;
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/21.jpg">
  </div>
  
 22. Obtener la suma total de datos de sensores para cada dispositivo, excluyendo aquellos
@@ -438,7 +438,7 @@ ORDER BY suma_total_datos_sensores DESC;
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/22.jpg">
  </div>
  
 23. Calcular la temperatura promedio por cada día de la semana para todos los dispositivos.
@@ -453,7 +453,7 @@ ORDER BY FIELD(dia_semana, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/23.jpg">
  </div>
  
 24. Encontrar los dispositivos cuyo consumo total de energía supere cierto umbral.
@@ -468,7 +468,7 @@ LIMIT 3;
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/24.jpg">
  </div>
  
 25. Mostrar los dispositivos que hayan experimentado una variación de temperatura superior al 15% en la última hora.
@@ -483,7 +483,7 @@ ORDER BY sre_value DESC;
    ```
 
 <div align="center" >
- <img src="BD tablas/images.jpg">
+ <img src="BD tablas/25.jpg">
  </div>
  
 
