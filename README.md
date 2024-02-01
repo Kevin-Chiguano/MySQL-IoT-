@@ -113,12 +113,12 @@ para cada uno.
 
 2. Encontrar la temperatura máxima registrada por cada dispositivo.
 ```sh
-   SELECT d.dev_id, d.dev_name, MAX(sr.sre_value) AS max_temperature
-FROM devices d
-LEFT JOIN sensors s ON d.dev_id = s.sen_dev_id
-LEFT JOIN sensorsreading sr ON s.sen_id = sr.sre_sen_id
-WHERE s.sensor_name = 'termometro'
-GROUP BY d.dev_id, d.dev_name;
+   SELECT dev_id, dev_name, MAX(sre_value) AS max_temperature
+FROM devices 
+LEFT JOIN sensors ON dev_id = sen_dev_id
+LEFT JOIN sensorsreading ON sen_id = sre_sen_id
+WHERE sen_name = 'termometro'
+GROUP BY dev_id, dev_name;
    ```
 
 <div align="center" >
