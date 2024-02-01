@@ -122,7 +122,7 @@ GROUP BY d.dev_id, d.dev_name;
    ```
 
 <div align="center" >
- <img src="BD tablas/Constulta2.jpg">
+ <img src="BD tablas/Constula2.jpg">
  </div>
  
 3. Mostrar la cantidad total de datos de sensores registrados para cada tipo de sensor.
@@ -134,7 +134,7 @@ GROUP BY s.sensor_type;
    ```
 
 <div align="center" >
- <img src="BD tablas/Constulta3.jpg">
+ <img src="BD tablas/Constula3.jpg">
  </div>
  
 4. Obtener la lista de dispositivos que no han enviado datos en las últimas 24 horas.
@@ -148,7 +148,7 @@ HAVING MAX(sr.sre_date) < NOW() - INTERVAL 24 HOUR OR MAX(sr.sre_date) IS NULL;
    ```
 
 <div align="center" >
- <img src="BD tablas/Constulta4.jpg">
+ <img src="BD tablas/Constula4.jpg">
  </div>
  
 5. Calcular el promedio de temperatura por hora para todos los dispositivos.
@@ -161,7 +161,7 @@ WHERE s.sensor_name = 'termometro'
 GROUP BY d.dev_id, d.dev_name, HOUR(sr.sre_date);
    ```
 <div align="center" >
- <img src="BD tablas/Constulta5.jpg">
+ <img src="BD tablas/Constula5.jpg">
  </div>
 
 6. Encontrar el dispositivo con la mayor cantidad de datos de sensores registrados.
@@ -178,7 +178,7 @@ LIMIT 1;
    ```
 
 <div align="center" >
- <img src="BD tablas/Constulta6.jpg">
+ <img src="BD tablas/Constula6.jpg">
  </div>
  
 7. Mostrar los dispositivos cuya temperatura promedio sea superior a cierto umbral.
@@ -193,7 +193,7 @@ HAVING AVG(sr.sre_value) > 40.00;
    ```
 
 <div align="center" >
- <img src="BD tablas/Constulta7.jpg">
+ <img src="BD tablas/Constula7.jpg">
  </div>
  
 8. Obtener la cantidad total de datos de sensores registrados para cada dispositivo en el
@@ -208,7 +208,7 @@ GROUP BY d.dev_id, d.dev_name;
    ```
 
 <div align="center" >
- <img src="BD tablas/Constulta8.jpg">
+ <img src="BD tablas/Constula8.jpg">
  </div>
 
 9. Encontrar los dispositivos que tengan al menos dos tipos diferentes de sensores.
@@ -225,7 +225,7 @@ WHERE sensor_counts.num_sensor_types >= 2;
    ```
 
 <div align="center" >
- <img src="BD tablas/Constulta9.jpg">
+ <img src="BD tablas/Constula9.jpg">
  </div>
  
 10. Mostrar los dispositivos cuyo estado actual sea "activo" y que hayan enviado datos en
